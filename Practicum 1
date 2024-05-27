@@ -30,32 +30,64 @@
         /// </summary>
         public enum Math
         {
-            add,
+            add = 1,
             sub,
             mul,
-            div
+            div,
+        }
+
+        /// <summary>
+        /// Перечисление для выхода
+        /// </summary>
+        public enum Exit
+        {
+            exit = 0
         }
 
         /// <summary>
         /// Статический метод для сложения, вычитания, умножения, деления
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public static double All_Sum_Sub_Mul_Div(double x, double y)
+        /// <param name="x">1-ое число</param>
+        /// <param name="y">2-ое число</param>
+        /// <param name="result">результат арифметических действий</param>
+        /// <returns>арифметические действия</returns>
+        public static double All_Sum_Sub_Mul_Div(double x, double y, int result)
         {
-            switch ((Math)x)
+            switch ((Math)result)
             {
-                case Math.add:(x + y).ToString();
+                case Math.add:
+                    Console.Write($"Результат сложения: {x+y}");
+                    (x + y).ToString();
                     break;
-                case Math.sub:(x - y).ToString();
+                case Math.sub:
+                    Console.Write($"Результат вычитания: {x-y}");
+                    (x - y).ToString();
                     break;
-                case Math.mul:(x * y).ToString();
+                case Math.mul:
+                    Console.Write($"Результат умножения: {x*y}");
+                    (x * y).ToString();
                     break;
-                case Math.div:(x / y).ToString();
+                case Math.div:
+                    Console.Write($"Результат делелния: {x/y}");
+                    (x / y).ToString();
                     break;
             }
-            return y;
+            return result;
+        }
+
+        /// <summary>
+        /// Статический метод ExitProgram
+        /// </summary>
+        /// <param name="result">результа</param>
+        /// <returns>выход из программы</returns>
+        public static int ExitProgram(int result)
+        {
+            switch ((Exit)result)
+            {
+                case Exit.exit:
+                    break;
+            }
+            return result;
         }
     }
 }
@@ -65,29 +97,53 @@
     {
         static void Main(string[] args)
         {
+            //1-Задание
             //Mounth i;
             //for (i = Mounth.январь; i <= Mounth.декабрь; i++)
             //{
             //    Console.WriteLine((int)i + "\t " + i);
             //}
 
+            //2-Задание
             //Days i;
             //for (i = Days.Sat; i <= Days.Fri; i++)
             //{
             //    Console.WriteLine(i+ " имеет значение " +(int)i);
             //}
 
-            Console.WriteLine("Введите арифметическое действие: ");
+            //3-Задание
             foreach (MathArifmetic.Math math in Enum.GetValues(typeof(MathArifmetic.Math)))
             {
                 Console.WriteLine($"{(int)math} - {math}");
             }
-            Console.WriteLine("Введите первое число: ");
-            double x = double.Parse(Console.ReadLine());
-            Console.WriteLine("Введите второе число: ");
-            double y = double.Parse(Console.ReadLine());
-            Console.WriteLine("Результат действий: ");
-            MathArifmetic.All_Sum_Sub_Mul_Div(x, y);
+
+            Console.WriteLine("Здесь вам представлены арифметические действия.");
+            Console.WriteLine("Вы можете сложить, вычесть, умножить или разделить числа: ");
+            Console.Write("Введите номер арифметического действия: ");
+            int result = int.Parse(Console.ReadLine());
+            while (true)
+            {
+                switch (result)
+                {
+                    default:
+                        if (result == 0 && result >= 5)
+                        {
+                            MathArifmetic.ExitProgram(result);
+                        }
+                        break;
+                }
+
+                if (result > 0 && result < 5)
+                {
+                    Console.WriteLine("Теперь укажите числа. ");
+                    Console.Write("Введите первое число: ");
+                    double x = double.Parse(Console.ReadLine());
+                    Console.Write("Введите второе число: ");
+                    double y = double.Parse(Console.ReadLine());
+                    MathArifmetic.All_Sum_Sub_Mul_Div(x, y, result);
+                }
+                break;
+            }
             Console.ReadKey();
         }
     }
