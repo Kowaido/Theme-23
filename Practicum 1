@@ -111,6 +111,46 @@
     }
 }
 
+{
+    /// <summary>
+    /// Класс Accauntant
+    /// </summary>
+    class Accauntant
+    {
+        /// <summary>
+        /// Перечисление сотрудников
+        /// </summary>
+        public enum Post
+        {
+            Менеджер = 160,
+            Программист = 180,
+            Дизайнер = 140,
+            Тестировщик = 170
+        }
+
+        /// <summary>
+        /// Метод для определения того, сколько работник отработал.
+        /// </summary>
+        /// <param name="worker">работника</param>
+        /// <param name="hours">часы</param>
+        /// <returns></returns>
+        public bool AksForBounds(Post worker, int hours)
+        {
+            int required = (int)worker;
+
+            if (hours > required)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+    }
+}
+
     class Program
     {
         static void Main(string[] args)
@@ -219,6 +259,38 @@
                     break;
             }
 
+            //5-Задание
+            Console.WriteLine("Введите должность сотрудника (Менеджер, Программист, Дизайнер, Тестировщик):");
+            string postInput = Console.ReadLine().Trim();
+
+            Console.WriteLine("Введите количество отработанных часов за месяц: ");
+            if (int.TryParse(Console.ReadLine().Trim(), out int hoursworked))
+            {
+                if (Enum.TryParse(postInput, true, out Accauntant.Post post))
+                {
+                    Accauntant accauntant = new Accauntant();
+
+                    if (accauntant.AksForBounds(post, hoursworked))
+                    {
+                        Console.WriteLine("Сотруднику положена премия");
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Сотруднику неположена премия");
+                    }
+                }
+
+                else
+                {
+                    Console.WriteLine("Некорректная должность сотдуника");
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("Некорректное введение обработанных часов.");
+            }
             Console.ReadKey();
         }
     }
