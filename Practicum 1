@@ -92,6 +92,24 @@
     }
 }
 
+{
+    /// <summary>
+    /// Класс Roles
+    /// </summary>
+    class Roles
+    {
+        /// <summary>
+        /// Перечисление ролей
+        /// </summary>
+        public enum UserRole
+        {
+            Администратор,
+            Модератор,
+            Пользователь,
+            Гость
+        }
+    }
+}
 
     class Program
     {
@@ -144,6 +162,63 @@
                 }
                 break;
             }
+
+            //4-Задание
+            Console.WriteLine("Вам представлено перечисление ролей: ");
+            
+            foreach (Roles.UserRole userRole in Enum.GetValues(typeof(Roles.UserRole)))
+            {
+                Console.WriteLine($"{userRole}");
+            }
+
+            Console.WriteLine("Вы можете зайти под одно из них. И вам покажет под каким вы зарегестрированы.");
+            Console.WriteLine("Можете войти: 1)Admin, 2)Moder, 3)User, 4)Guest");
+            Console.Write("Введите одну из ролей: ");
+            string stroka = Console.ReadLine().Trim().ToLower();
+
+            Roles.UserRole userRole1 = Roles.UserRole.Гость;
+            switch (stroka)
+            {
+                case "admin":
+                    userRole1 = Roles.UserRole.Администратор;
+                    break;
+
+                case "moder":
+                    userRole1 = Roles.UserRole.Модератор;
+                    break;
+
+                case "user":
+                    userRole1 = Roles.UserRole.Пользователь;
+                    break;
+
+                case "guest":
+                    userRole1 = Roles.UserRole.Гость;
+                    break;
+
+                default:
+                    Console.WriteLine("«не содержит ни одного из приведенных рекомендаций»");
+                    return;
+            }
+
+            switch (userRole1)
+            {
+                case Roles.UserRole.Администратор:
+                    Console.WriteLine("«Вы зарегистрированы как администратор»");
+                    break;
+
+                case Roles.UserRole.Модератор:
+                    Console.WriteLine("«Вы зарегистрированы как модератор»");
+                    break;
+
+                case Roles.UserRole.Пользователь:
+                    Console.WriteLine("«Вы зарегистрированы как пользователь»");
+                    break;
+
+                case Roles.UserRole.Гость:
+                    Console.WriteLine("«Вы зарегистрированы как гость»");
+                    break;
+            }
+
             Console.ReadKey();
         }
     }
